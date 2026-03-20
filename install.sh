@@ -2,7 +2,7 @@
 set -euo pipefail
 
 # AO CLI Installer for macOS
-# Usage: curl -fsSL https://raw.githubusercontent.com/launchapp-dev/ao/main/install.sh | bash
+# Usage: curl -fsSL https://raw.githubusercontent.com/launchapp-dev/ao-cli/main/scripts/install.sh | bash
 
 REPO="launchapp-dev/ao"
 INSTALL_DIR="${AO_INSTALL_DIR:-${HOME}/.local/bin}"
@@ -94,6 +94,7 @@ main() {
     if [[ ! -f "${stage_dir}/${bin}" ]]; then
       error "Binary '${bin}' not found in archive"
     fi
+    rm -f "${INSTALL_DIR}/${bin}"
     cp "${stage_dir}/${bin}" "${INSTALL_DIR}/${bin}"
     chmod +x "${INSTALL_DIR}/${bin}"
     if [[ "$(uname -s)" == "Darwin" ]] && command -v codesign &>/dev/null; then
